@@ -22,11 +22,17 @@ docker run --rm benel/couchapp
 * Convert the `app` directory into `app.json`:
 
 ```sh
-docker run --rm -v "$(pwd)"/app:/app benel/couchapp push --export >app.json
+docker run --rm -v "$(pwd)"/app:/app benel/couchapp push . --export >app.json
 ```
 
 * Push the `app` directory as a design document of the `db` database of the `couchdb1` running container:
 
 ```sh
 docker run --rm -v "$(pwd)"/app:/app --link couchdb1:couchdb -e URI=http://couchdb:5984/ benel/couchapp push .
+```
+
+* Push every JSON file in the `docs` directory as a document of the `db` database of the `couchdb1` running container:
+
+```sh
+docker run --rm -v "$(pwd)"/docs:/app --link couchdb1:couchdb -e URI=http://couchdb:5984/db benel/couchapp pushdocs . 
 ```
