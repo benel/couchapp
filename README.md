@@ -28,5 +28,5 @@ docker run --rm -v "$(pwd)"/app:/app benel/couchapp push --export >app.json
 * Push the `app` directory as a design document of the `db` database of the `couchdb1` running container:
 
 ```sh
-docker run --rm -v "$(pwd)"/app:/app --link couchdb1:couchdb benel/couchapp push http://couchdb:5984/db
+docker run --rm -v "$(pwd)"/app:/app --link couchdb1:couchdb -e URI=http://couchdb:5984/ benel/couchapp push .
 ```

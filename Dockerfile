@@ -1,5 +1,6 @@
 FROM python:2
 RUN pip install couchapp
+COPY ./patient_couchapp.sh /
 
 WORKDIR /app
-ENTRYPOINT ["couchapp"]
+ENTRYPOINT ["/patient_couchapp.sh"]
