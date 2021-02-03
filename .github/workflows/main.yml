@@ -8,5 +8,5 @@ jobs:
           sudo snap install ngrok
           ngrok http 1337 -bind-tls=true > /dev/null &
       - run: |
-          export APP_HOST=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url')
+          export APP_HOST=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
           echo $APP_HOST
