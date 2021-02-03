@@ -1,0 +1,15 @@
+name: Playing with Ngrok
+on: push
+jobs:
+  on_https:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          sudo snap install ngrok
+          ngrok http 1337 -bind-tls=true > /dev/null &
+          echo "$(curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url')"
+      - run: echo "$(curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url')"
+      - run: echo "APP_HOST=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url')" >> $GITHUB_ENV
+      - run: |
+          export APP_HOST=${{ env.APP_HOST }}
+          echo $APP_HOST
