@@ -1,9 +1,10 @@
-name: Ngrok
+name: Playing with Ngrok
 on: push
 jobs:
-  https:
+  on_https:
    runs-on: ubuntu-latest
    steps:
      - run: sudo snap install ngrok
      - run: ngrok http 1337 -bind-tls=true > /dev/null &
-     - run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
+     - run: export APP_HOST=`curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'`
+     - run: echo $APP_HOST
